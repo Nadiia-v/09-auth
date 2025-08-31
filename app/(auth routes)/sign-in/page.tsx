@@ -18,15 +18,16 @@ const SignIn = () => {
       const formValues = Object.fromEntries(formData) as LoginRequest;
       const res = await login(formValues);
       if (res) {
-        setIsAuthenticated(true);
         const user = await getMe();
-        setUser(user);
-        router.push("/profile");
+        if (user) {
+          setIsAuthenticated(true);
+          setUser(user);
+          router.push("/profile");
+        }
       } else {
         setError("Invalid email or password");
       }
-    } catch (error) {
-      console.log("error", error);
+    } catch {
       setError("Invalid email or password");
     }
   };

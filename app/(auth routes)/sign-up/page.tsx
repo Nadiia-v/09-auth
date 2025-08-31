@@ -15,11 +15,16 @@ const SignUp = () => {
     try {
       const formValues = Object.fromEntries(formData) as RegisterRequest;
       const res = await register(formValues);
+
       if (res) {
-        setIsAuthenticated(true);
         const user = await getMe();
-        setUser(user);
-        router.push("/profile");
+        if (user) {
+          setIsAuthenticated(true);
+          setUser(user);
+          router.push("/profile");
+        } else {
+          setError("Invalid email or password");
+        }
       } else {
         setError("Invalid email or password");
       }
