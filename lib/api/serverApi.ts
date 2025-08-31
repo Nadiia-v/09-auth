@@ -1,5 +1,6 @@
 import { fetchNotesResponse, Note } from "@/types/note";
-import { ServerBoolResponse, User } from "@/types/user";
+import { User } from "@/types/user";
+import { ServerBoolResponse } from "@/types/server";
 import { cookies } from "next/headers";
 import nextServer from "./api";
 

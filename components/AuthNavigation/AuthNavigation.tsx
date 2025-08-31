@@ -5,6 +5,7 @@ import css from "./AuthNavigation.module.css";
 import { useAuth } from "@/lib/store/authStore";
 import { logOut } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const AuthNavigation = () => {
   const { isAuthenticated, clearAuth } = useAuth();
@@ -19,9 +20,9 @@ const AuthNavigation = () => {
   return isAuthenticated ? (
     <>
       <li className={css.navigationItem}>
-        <a href="/profile" className={css.navigationLink}>
+        <Link href="/profile" className={css.navigationLink}>
           Profile
-        </a>
+        </Link>
       </li>
       <li className={css.navigationItem}>
         <button className={css.logoutButton} onClick={handleLogOut}>
@@ -32,14 +33,14 @@ const AuthNavigation = () => {
   ) : (
     <>
       <li className={css.navigationItem}>
-        <a href="/sign-in" className={css.navigationLink}>
+        <Link href="/sign-in" className={css.navigationLink}>
           Login
-        </a>
+        </Link>
       </li>
       <li className={css.navigationItem}>
-        <a href="/sign-up" className={css.navigationLink}>
+        <Link href="/sign-up" className={css.navigationLink}>
           Sign up
-        </a>
+        </Link>
       </li>
     </>
   );

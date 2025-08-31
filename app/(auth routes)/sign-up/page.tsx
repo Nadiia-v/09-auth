@@ -3,7 +3,7 @@ import css from "./SignUpPage.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getMe, register } from "@/lib/api/clientApi";
-import { RegisterRequest } from "@/types/user";
+import { RegisterRequest } from "@/types/auth";
 import { useAuth } from "@/lib/store/authStore";
 
 const SignUp = () => {

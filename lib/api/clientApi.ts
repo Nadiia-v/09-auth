@@ -1,12 +1,9 @@
 import { fetchNotesResponse, NewNote, Note } from "@/types/note";
 import nextServer from "./api";
-import {
-  EditUser,
-  RegisterRequest,
-  ServerBoolResponse,
-  User,
-  LoginRequest,
-} from "@/types/user";
+import { EditUser, User } from "@/types/user";
+import { LoginRequest, RegisterRequest } from "@/types/auth";
+import { ServerBoolResponse } from "@/types/server";
+import axios from "axios";
 
 export async function fetchNotes(
   searchText: string,
@@ -64,8 +61,13 @@ export const checkSession = async (): Promise<boolean> => {
 };
 
 export const getMe = async () => {
-  const { data } = await nextServer<User>(`/users/me`);
-  return data;
+  try {
+    const { data } = await nextServer.get<User>("/users/me");
+    return data;
+  } catch (e) {
+    if (axios.isAxiosError(e) && e.response?.status === 401) return null;
+    throw e;
+  }
 };
 
 export const editUser = async (user: EditUser): Promise<User> => {

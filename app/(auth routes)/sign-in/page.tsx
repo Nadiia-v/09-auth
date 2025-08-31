@@ -4,7 +4,7 @@ import css from "./SignInPage.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { getMe, login } from "@/lib/api/clientApi";
-import { LoginRequest } from "@/types/user";
+import { LoginRequest } from "@/types/auth";
 import { useAuth } from "@/lib/store/authStore";
 
 const SignIn = () => {
