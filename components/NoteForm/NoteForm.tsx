@@ -20,8 +20,12 @@ export default function NoteForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    setDraft({ title, content, tag });
-  }, [title, content, tag, setDraft]);
+    if (draft) {
+      if (draft.title) setTitle(draft.title);
+      if (draft.content) setContent(draft.content);
+      if (draft.tag) setTag(draft.tag as Tags);
+    }
+  }, [draft]);
 
   const mutation = useMutation({
     mutationFn: createNote,
@@ -66,7 +70,11 @@ export default function NoteForm() {
           minLength={3}
           maxLength={50}
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            const v = e.target.value;
+            setTitle(v);
+            setDraft({ title: v, content, tag });
+          }}
         />
       </div>
 
@@ -79,7 +87,11 @@ export default function NoteForm() {
           required
           maxLength={500}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            const v = e.target.value;
+            setContent(v);
+            setDraft({ title, content: v, tag });
+          }}
         />
       </div>
 
@@ -91,7 +103,11 @@ export default function NoteForm() {
           className={css.select}
           required
           value={tag}
-          onChange={(e) => setTag(e.target.value as Tags)}
+          onChange={(e) => {
+            const v = e.target.value as Tags;
+            setTag(v);
+            setDraft({ title, content, tag: v });
+          }}
         >
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>

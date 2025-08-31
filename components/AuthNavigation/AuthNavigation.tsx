@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const AuthNavigation = () => {
-  const { isAuthenticated, clearAuth } = useAuth();
+  const { isAuthenticated, user, clearAuth } = useAuth();
   const router = useRouter();
 
   const handleLogOut = async () => {
@@ -16,9 +16,13 @@ const AuthNavigation = () => {
     clearAuth();
     router.replace("/sign-in");
   };
+  const displayName = user?.username ?? user?.email ?? "User";
 
   return isAuthenticated ? (
     <>
+      <li className={css.navigationItem}>
+        <span>{displayName}</span>
+      </li>
       <li className={css.navigationItem}>
         <Link href="/profile" className={css.navigationLink}>
           Profile
